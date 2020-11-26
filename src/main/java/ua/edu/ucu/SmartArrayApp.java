@@ -100,7 +100,7 @@ public class SmartArrayApp {
 
         String[] names = new String[arr.size()];
         int j = 0;
-        for (Object t:arr) {
+        for (Object t:arr.toArray()) {
             int s;
             int e;
             String name = "";
