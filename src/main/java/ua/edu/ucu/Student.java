@@ -1,7 +1,7 @@
 package ua.edu.ucu;
 
 
-class Student {
+public class Student {
 
     private double GPA;
     private int year;
