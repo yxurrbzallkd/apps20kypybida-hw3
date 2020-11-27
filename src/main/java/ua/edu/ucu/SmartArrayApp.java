@@ -84,7 +84,7 @@ public class SmartArrayApp {
                     names[i] = s.getSurname()+" "+s.getName();
                     i++;
                 }
-                System.out.println("\n\nARRAY"+Arrays.toString(names));
+                //System.out.println("\n\nARRAY"+Arrays.toString(names));
                 return names;
             }
 
