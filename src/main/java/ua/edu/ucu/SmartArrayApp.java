@@ -51,71 +51,39 @@ public class SmartArrayApp {
 
     public static String[]
             findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
-        SmartArray arr = new BaseArray(students);
-        arr = new DistinctDecorator(arr);
-        MyPredicate prYear2 = new MyPredicate() {
-        public boolean test(Object t) {
-            String str = t.toString();
-            int s = str.indexOf("year=");
-            int e = str.substring(s+5, str.length()).indexOf("}");
-            int year = Integer.parseInt(str.substring(s+5, s+e+5));
-            return year == 2;
+                SmartArray arr = new BaseArray(students);
+                arr = new DistinctDecorator(arr);
+                
+                MyPredicate prYear2 = new MyPredicate() {
+                    public boolean test(Object t) {
+                        return ((Student) t).getYear() == 2;
+                    }
+                };
+                MyPredicate prGPAg4 = new MyPredicate() {
+                    public boolean test(Object t) {
+                        return ((Student) t).getGPA() >= 4;
+                    }
+                };
+                MyComparator cmp = new MyComparator() {
+                    @Override
+                    public int compare(Object o1, Object o2) {
+                        return ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
+                    }
+                };
+        
+                arr = new FilterDecorator(arr, prYear2);
+                arr = new FilterDecorator(arr, prGPAg4);
+                arr = new SortDecorator(arr, cmp);
+                arr = new DistinctDecorator(arr);
+         
+                String[] names = new String[arr.size()];
+                int i = 0;
+                Student s;
+                for (Object t:arr.toArray()){
+                    s = (Student) t; //convert
+                    names[i] = s.getSurname()+" "+s.getName();
+                    i++;
+                }
+                return names;
             }
-        };
-        MyPredicate prGPAg4 = new MyPredicate() {
-            public boolean test(Object t) {
-                String str = t.toString();
-                int s = str.indexOf("GPA=");
-                int e = str.substring(s+4, str.length()).indexOf(",");
-                Float gpa = Float.parseFloat(str.substring(s+4, s+e+4));
-                return gpa >= 4;
-            }
-        };
-        MyComparator cmp = new MyComparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                String str;
-                int s;
-                int e;
-                str = o1.toString();
-                s = str.indexOf("surname=");
-                e = str.substring(s+8, str.length()).indexOf(",");
-                String s1 = str.substring(s+8, s+e+8);
-                str = o2.toString();
-                s = str.indexOf("surname=");
-                e = str.substring(s+8, str.length()).indexOf(",");
-                String s2 = str.substring(s+8, s+e+8);
-                return s1.compareTo(s2);
-            }
-        };
-
-        arr = new FilterDecorator(arr, prYear2);
-        //System.out.println(arr.toString());
-        arr = new FilterDecorator(arr, prGPAg4);
-        //System.out.println(arr.toString());
-        arr = new SortDecorator(arr, cmp);
-         //System.out.println(arr.toString());
-        arr = new DistinctDecorator(arr);
-
-
-        String[] names = new String[arr.size()];
-        int j = 0;
-        for (Object t:arr.toArray()) {
-            int s;
-            int e;
-            String name = "";
-            String str = t.toString();
-            s = str.indexOf("name=");
-            str = str.substring(s+5, str.length());
-            e = str.indexOf(",");
-            name += str.substring(0, e)+" ";
-            s = str.indexOf("surname=");
-            str = str.substring(s+8, str.length());
-            e = str.indexOf(",");
-            name += str.substring(0, e);
-            names[j] = name;
-            j++;
-        }
-        return names;
-    }
 }
