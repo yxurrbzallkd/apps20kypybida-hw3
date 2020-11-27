@@ -55,19 +55,19 @@ public class SmartArrayApp {
                 arr = new DistinctDecorator(arr);
                 
                 MyPredicate prYear2 = new MyPredicate() {
-                    public boolean test(Object t) {
-                        return ((Student) t).getYear() == 2;
+                    public boolean test(Object obj) {
+                        return ((Student) obj).getYear() == 2;
                     }
                 };
                 MyPredicate prGPAg4 = new MyPredicate() {
-                    public boolean test(Object t) {
-                        return ((Student) t).getGPA() >= 4;
+                    public boolean test(Object obj) {
+                        return ((Student) obj).getGPA() >= 4;
                     }
                 };
                 MyComparator cmp = new MyComparator() {
                     @Override
-                    public int compare(Object o1, Object o2) {
-                        return ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
+                    public int compare(Object oA, Object oB) {
+                        return ((Student) oA).getSurname().compareTo(((Student) oB).getSurname());
                     }
                 };
         
@@ -78,13 +78,12 @@ public class SmartArrayApp {
          
                 String[] names = new String[arr.size()];
                 int i = 0;
-                Student s;
-                for (Object t:arr.toArray()){
-                    s = (Student) t; //convert
-                    names[i] = s.getSurname()+" "+s.getName();
+                Student student;
+                for (Object obj:arr.toArray()){
+                    student = (Student) obj; //convert
+                    names[i] = student.getSurname()+" "+student.getName();
                     i++;
                 }
-                System.out.println("\n\nARRAY"+Arrays.toString(names));
                 return names;
             }
 
