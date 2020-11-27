@@ -50,7 +50,7 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] s) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] strs) {
                 Student[] students = {
                     new Student("Ivar", "Grimstad", 3.9, 2),
                     new Student("Ittai", "Zeidman", 4.5, 1),
