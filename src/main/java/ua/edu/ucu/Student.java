@@ -36,4 +36,8 @@ public class Student {
         return "Student{name=" + name + ", surname=" + surname + ", " + "GPA=" + GPA + ", year=" + year + '}';
     }
 
+    @Override
+    public boolean equals(Object s2) {
+        return this.toString().equals(s2.toString());
+    }
 }
