@@ -98,4 +98,6 @@ public class SmartArrayApp {
                     names[i] = s.getSurname()+" "+s.getName();
                     i++;
                 }
+                return names;
+            }
 }
