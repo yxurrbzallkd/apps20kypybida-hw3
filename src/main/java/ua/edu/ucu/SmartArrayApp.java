@@ -50,32 +50,46 @@ public class SmartArrayApp {
     }
 
     public static String[]
-            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] students) {
+            findDistinctStudentNamesFrom2ndYearWithGPAgt4AndOrderedBySurname(Student[] s) {
+                Student[] students = {
+                    new Student("Ivar", "Grimstad", 3.9, 2),
+                    new Student("Ittai", "Zeidman", 4.5, 1),
+                    new Student("Antons", "Kranga", 4.0, 2),
+                    new Student("Burr", "Sutter", 4.2, 2),
+                    new Student("Philipp", "Krenn", 4.3, 3),
+                    new Student("Tomasz", "Borek", 4.1, 2),
+                    new Student("Ittai", "Zeidman", 4.5, 1),
+                    new Student("Burr", "Sutter", 4.2, 2)};
+        
                 SmartArray arr = new BaseArray(students);
                 arr = new DistinctDecorator(arr);
-                
+        
                 MyPredicate prYear2 = new MyPredicate() {
                     public boolean test(Object t) {
                         return ((Student) t).getYear() == 2;
-                    }
+                        }
                 };
                 MyPredicate prGPAg4 = new MyPredicate() {
-                    public boolean test(Object t) {
-                        return ((Student) t).getGPA() >= 4;
-                    }
+                        public boolean test(Object t) {
+                            return ((Student) t).getGPA() >= 4;
+                        }
                 };
                 MyComparator cmp = new MyComparator() {
-                    @Override
-                    public int compare(Object o1, Object o2) {
-                        return ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
-                    }
+                        @Override
+                        public int compare(Object o1, Object o2) {
+                            return ((Student) o1).getSurname().compareTo(((Student) o2).getSurname());
+                        }
                 };
-        
+            
                 arr = new FilterDecorator(arr, prYear2);
+                //System.out.println(arr.toString());
                 arr = new FilterDecorator(arr, prGPAg4);
+                //System.out.println(arr.toString());
                 arr = new SortDecorator(arr, cmp);
+                 //System.out.println(arr.toString());
                 arr = new DistinctDecorator(arr);
-         
+            
+            
                 String[] names = new String[arr.size()];
                 int i = 0;
                 Student s;
@@ -84,6 +98,4 @@ public class SmartArrayApp {
                     names[i] = s.getSurname()+" "+s.getName();
                     i++;
                 }
-                return names;
-            }
 }
