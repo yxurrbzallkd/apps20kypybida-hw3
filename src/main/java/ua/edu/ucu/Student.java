@@ -38,6 +38,13 @@ public class Student {
 
     @Override
     public boolean equals(Object s2) {
-        return this.toString().equals(s2.toString());
+        if (this.getClass() != s2.getClass()) {
+            return false;
+        }
+        Student sB = (Student) s2;
+        return (this.getName() == sB.getName())
+        && (this.getSurname() == sB.getSurname())
+        && (this.getYear() == sB.getYear())
+        && (this.getGPA() == sB.getGPA());
     }
 }
